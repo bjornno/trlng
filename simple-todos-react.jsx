@@ -47,7 +47,7 @@ if (Meteor.isServer) {
               coordinates: [ geo.lng, geo.lat ] },
             $distanceField: "dist",
             $minDistance: 0,
-            $maxDistance: 100
+            $maxDistance: 1000
           }
        }
     });
