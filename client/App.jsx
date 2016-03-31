@@ -43,9 +43,13 @@ App = React.createClass({
 
     // Find the text field via the React ref
     let text = React.findDOMNode(this.refs.textInput).value.trim();
-
     let geo = Session.get('geo');
     Meteor.call("addTask", text, geo);
+    if (text == "troll help") {
+      Meteor.call("addBotTask", "Hi, you can ask me of anything ", geo);
+    } else if (text.indexOf("troll ") == 0) {
+      Meteor.call("addBotTask", Fake.fromArray(['banana', 'apple', 'strawberry', 'raspberry', 'pear']), geo);
+    }
 
     // Clear form
     React.findDOMNode(this.refs.textInput).value = "";

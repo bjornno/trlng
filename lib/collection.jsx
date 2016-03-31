@@ -19,4 +19,21 @@ Meteor.methods({
       }
     });
   },
+  addBotTask(text, geo) {
+    // Make sure the user is logged in before inserting a task
+    if (! Meteor.userId()) {
+      throw new Meteor.Error("not-authorized");
+    }
+    console.log("add task", geo);
+
+    Tasks.insert({
+      text: text,
+      createdAt: new Date(),
+      username: "Troll",
+      loc: {
+        type: "Point",
+        coordinates: [geo.lng, geo.lat]
+      }
+    });
+  }
 });
