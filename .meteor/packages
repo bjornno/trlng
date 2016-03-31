@@ -6,7 +6,10 @@
 
 meteor-platform
 react
+meteoric:ionic-sass
+meteoric:ionicons-sass
 accounts-ui
 accounts-password
 mdg:geolocation
 
+tmeasday:presence

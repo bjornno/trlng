@@ -4,26 +4,20 @@ App = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
-  getInitialState() {
-    return {
-      hideCompleted: false
-    }
-  },
-
   // Loads items from the Tasks collection and puts them on this.data.tasks
   getMeteorData() {
     let geo = Session.get('geo');
-    Meteor.subscribe("tasks", geo);
-    let query = {};
-
-    if (this.state.hideCompleted) {
-      // If hide completed is checked, filter tasks
-      query = {checked: {$ne: true}};
+    if (geo == null) {
+      console.log("no geo");
     }
+    Meteor.subscribe("tasks", geo);
+    Meteor.subscribe('userPresence');
+    let query = {};
 
     return {
       tasks: Tasks.find(query, {sort: {createdAt: -1}}).fetch(),
-      currentUser: Meteor.user()
+      currentUser: Meteor.user(),
+      all_count: Presences.find().count()
     };
   },
 
@@ -62,7 +56,7 @@ App = React.createClass({
       <div className="container">
         <header>
           <h1>TROLL AWAY</h1>
-
+          { this.data.all_count} users online
           <AccountsUIWrapper />
 
           { this.data.currentUser ?
