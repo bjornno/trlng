@@ -30,7 +30,7 @@ Meteor.publish('userPresence', function (geo) {
 
   // If for example we wanted to publish only logged in users we could apply:
   // filter = { userId: { $exists: true }};
-  var filter = {}; 
+  if (geo) {
 
   return Presences.find({
 		  state:
@@ -44,5 +44,8 @@ Meteor.publish('userPresence', function (geo) {
 		        $maxDistance: 100
 		      }
 		   }
-		}, { fields: { state: true, userId: true }});
+		}, { fields: { state: true, userId: true }})
+} else {
+	return null;
+}
 });
