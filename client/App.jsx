@@ -15,12 +15,12 @@ App = React.createClass({
     let query = {};
 
     return {
-      tasks: Tasks.find(query, {sort: {createdAt: -1}}).fetch(),
+      tasks: Tasks.find(query, {sort: {createdAt: 1}}).fetch(),
       currentUser: Meteor.user(),
       all_count: Presences.find().count()
     };
-  },
 
+  },
   renderTasks() {
     // Get tasks from this.data.tasks
     return this.data.tasks.map((task) => {
@@ -30,8 +30,14 @@ App = React.createClass({
         key={task._id}
         task={task} />;
     });
-  },
 
+  },
+  componentDidMount() {
+    React.findDOMNode(this.refs.tasks).scrollTop = 100000;
+  },
+  componentDidUpdate() {
+    React.findDOMNode(this.refs.tasks).scrollTop = 100000;
+  },
   handleSubmit(event) {
     event.preventDefault();
 
@@ -53,13 +59,21 @@ App = React.createClass({
 
   render() {
     return (
-      <div className="container">
+      <div >
         <header>
           <h1>TROLL AWAY</h1>
           { this.data.all_count} users online
           <AccountsUIWrapper />
 
-          { this.data.currentUser ?
+          
+        </header>
+        <div className="content" ref="tasks">
+        <ul>
+          {this.renderTasks()}
+        </ul>
+        </div>
+        <div className="footer">
+        { this.data.currentUser ?
             <form className="new-task" onSubmit={this.handleSubmit} >
               <input
                 type="text"
@@ -67,11 +81,7 @@ App = React.createClass({
                 placeholder="new message.." />
             </form> : ''
           }
-        </header>
-
-        <ul>
-          {this.renderTasks()}
-        </ul>
+        </div>
       </div>
     );
   }
