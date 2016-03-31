@@ -45,7 +45,7 @@ Meteor.publish('userPresence', function (geo) {
 		      }
 		   }
 		}, { fields: { state: true, userId: true }})
-} catch {
+} catch (e) {
 	return null;
 }
 } else {
