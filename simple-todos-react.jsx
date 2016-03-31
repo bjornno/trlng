@@ -8,8 +8,6 @@ if (Meteor.isClient) {
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
-  let geo = Session.get('geo')
-  Meteor.subscribe("tasks", geo);
 
   Meteor.startup(function () {
     Tracker.autorun(function () {
