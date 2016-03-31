@@ -14,3 +14,11 @@ Meteor.startup(function () {
 	}); 
 	React.render(<App />, document.getElementById("render-target"));
 });
+
+Presence.state = function() {
+	let geo = Session.get('geo');
+  return {
+        type: "Point",
+        coordinates: [geo.lng, geo.lat]
+      };
+}

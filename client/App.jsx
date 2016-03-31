@@ -11,7 +11,7 @@ App = React.createClass({
       console.log("no geo");
     }
     Meteor.subscribe("tasks", geo);
-    Meteor.subscribe('userPresence');
+    Meteor.subscribe('userPresence', geo);
     let query = {};
 
     return {
